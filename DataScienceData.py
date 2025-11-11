@@ -1,23 +1,13 @@
-# =============================
-# 📦 Import Required Libraries
-# =============================
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from plotnine import ggplot, aes, geom_point, labs, theme_minimal
 
-# =============================
-# 📂 Load the Dataset
-# =============================
 
-# ✅ Update the path below to where your file is actually stored
 file_path = r"C:\Users\rajso\OneDrive\Desktop\archive\DataScience_salaries_2024.csv"
 DataScience_salaries_2024 = pd.read_csv(file_path)
-
-# =============================
-# 🔍 Data Inspection
-# =============================
 
 print("----- HEAD -----")
 print(DataScience_salaries_2024.head())
@@ -28,27 +18,15 @@ print(DataScience_salaries_2024.info())
 print("\n----- SUMMARY -----")
 print(DataScience_salaries_2024.describe(include='all'))
 
-# =============================
-# 🚨 Check for Missing & Duplicate Data
-# =============================
-
 missing_values = DataScience_salaries_2024.isna().sum().sum()
 print(f"\nCount of total missing values: {missing_values}")
 
 duplicates = DataScience_salaries_2024.duplicated().sum()
 print(f"Count of total duplicate observations: {duplicates}")
 
-# =============================
-# 📋 Display Column Names
-# =============================
 print("\nColumn Names:")
 print(DataScience_salaries_2024.columns.tolist())
 
-# =============================
-# 📊 Visualization Section
-# =============================
-
-# --- Histogram (single attribute) ---
 plt.figure(figsize=(6,4))
 sns.histplot(DataScience_salaries_2024['salary'], kde=True, bins=30)
 plt.title("Histogram of Salary")
@@ -70,7 +48,6 @@ plt.xlabel("Remote Ratio")
 plt.ylabel("Frequency")
 plt.show()
 
-# --- 2D Histogram (salary vs salary_in_usd) ---
 plt.figure(figsize=(6,4))
 sns.histplot(
     data=DataScience_salaries_2024,
@@ -81,25 +58,22 @@ sns.histplot(
 plt.title("2D Histogram: Salary vs Salary in USD")
 plt.show()
 
-# --- Box Plot ---
 plt.figure(figsize=(6,4))
 sns.boxplot(x=DataScience_salaries_2024['salary'])
 plt.title("Boxplot of Salary")
 plt.show()
 
-# --- Scatter Plot ---
+
 plt.figure(figsize=(6,4))
 sns.scatterplot(x='salary_in_usd', y='salary', data=DataScience_salaries_2024)
 plt.title("Scatter Plot: Salary vs Salary in USD")
 plt.show()
 
-# --- Box Plot by Remote Ratio ---
 plt.figure(figsize=(8,5))
 sns.boxplot(x='remote_ratio', y='salary', data=DataScience_salaries_2024)
 plt.title("Boxplot of Salary by Remote Ratio")
 plt.show()
 
-# --- Scatter Plot by Remote Ratio ---
 sns.lmplot(
     x='salary_in_usd',
     y='salary',
@@ -113,7 +87,6 @@ sns.lmplot(
 plt.title("Scatter Plot by Remote Ratio")
 plt.show()
 
-# --- Bar Chart ---
 plt.figure(figsize=(8,5))
 DataScience_salaries_2024['salary'].value_counts().head(20).plot(kind='bar')
 plt.title("Top 20 Salary Frequency")
@@ -121,16 +94,12 @@ plt.xlabel("Salary")
 plt.ylabel("Count")
 plt.show()
 
-# --- Density Plot ---
 plt.figure(figsize=(6,4))
 sns.kdeplot(x=DataScience_salaries_2024['salary'], fill=True, color='teal')
 plt.title("Density Plot of Salary")
 plt.xlabel("Salary")
 plt.show()
 
-# =============================
-# 🎨 ggplot2 Style Visualization using plotnine
-# =============================
 
 plot = (
     ggplot(DataScience_salaries_2024, aes(x='salary', y='salary_in_usd')) +
@@ -141,3 +110,4 @@ plot = (
     theme_minimal()
 )
 print(plot)
+
